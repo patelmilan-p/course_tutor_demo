@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "tutors": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "bio": {
+              "type": "string"
+            },
+            "company": {
+              "type": "string"
+            }
+          },
+          "required": ["id", "name", "title", "bio", "company"]
+        }
+      ]
+    }
+  },
+  "required": ["id", "name", "description", "duration", "price", "tutors"]
+}

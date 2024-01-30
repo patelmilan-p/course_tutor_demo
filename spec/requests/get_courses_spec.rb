@@ -14,5 +14,9 @@ RSpec.describe 'Courses', type: :request do
     it 'returns status code 200' do
       expect(response).to have_http_status(:success)
     end
+
+    it 'response matches with the courses json schema' do
+      expect(response).to match_json_schema('api/v1/courses', strict: true)
+    end
   end
 end

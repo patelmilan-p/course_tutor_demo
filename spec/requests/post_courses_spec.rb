@@ -50,6 +50,10 @@ RSpec.describe 'Courses', type: :request do
       it 'returns a created status' do
         expect(response).to have_http_status(:created)
       end
+
+      it 'response matches with the course json schema' do
+        expect(response).to match_json_schema('api/v1/course', strict: true)
+      end
     end
 
     context 'with invalid parameters' do
