@@ -1,6 +1,6 @@
 class Api::V1::CoursesController < ApplicationController
   def index
-    @courses = Course.all
+    @courses = Course.all.includes(:tutors)
   end
 
   def create
