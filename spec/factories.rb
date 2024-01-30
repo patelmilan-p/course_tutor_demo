@@ -10,8 +10,8 @@ FactoryBot.define do
         tutors_count { 2 }
       end
 
-      tutors do
-        Array.new(tutors_count) { association(:tutor) }
+      after(:create) do |course, context|
+        create_list(:tutor, context.tutors_count, course: course)
       end
     end
   end

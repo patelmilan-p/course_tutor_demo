@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Courses', type: :request do
   describe 'GET /index' do
     before do
-      FactoryBot.create_list(:course_with_tutors, 10)
-      get '/api/v1/courses'
+      10.times { FactoryBot.create(:course_with_tutors) }
+      get '/api/v1/courses.json'
     end
 
     it 'returns all courses' do
