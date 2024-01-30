@@ -7,7 +7,7 @@ class Api::V1::CoursesController < ApplicationController
     @course = Course.create course_params
 
     if @course.valid?
-      render json: @course, status: :created
+      render status: :created
     else
       render json: @course.errors, status: :unprocessable_entity
     end
@@ -16,6 +16,7 @@ class Api::V1::CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:name, :description, :duration, :price)
+    params.require(:course).permit(:name, :description, :duration, :price,
+                                   tutors_attributes: [:name, :title, :bio, :company])
   end
 end

@@ -4,15 +4,27 @@ RSpec.describe 'Courses', type: :request do
   describe 'POST /create' do
     context 'with valid parameters' do
       let!(:my_course) { FactoryBot.create(:course_with_tutors) }
+      let!(:tutor1) { my_course.tutors[0] }
+      let!(:tutor2) { my_course.tutors[1] }
+      let!(:params) {
+        {
+          course: {
+            name: my_course.name,
+            description: my_course.description,
+            duration: my_course.duration,
+            price: my_course.price,
+            tutors_attributes: {
+              '0' => { name: tutor1.name, title: tutor1.title, bio: tutor1.bio,
+                company: tutor1.company },
+              '1' => { name: tutor2.name, title: tutor2.title, bio: tutor2.bio,
+                company: tutor2.company }
+            }
+          }
+        }
+      }
 
       before do
-        post '/api/v1/courses.json', params:
-                          { course: {
-                            name: my_course.name,
-                            description: my_course.description,
-                            duration: my_course.duration,
-                            price: my_course.price
-                          } }
+        post '/api/v1/courses.json', params: params
       end
 
       it 'returns the name' do
@@ -29,6 +41,10 @@ RSpec.describe 'Courses', type: :request do
 
       it 'returns the price' do
         expect(json['price']).to eq(my_course.price)
+      end
+
+      it 'returns tutors along with course' do
+        expect(json['tutors'].size).to eq(2)
       end
 
       it 'returns a created status' do
